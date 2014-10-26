@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title></title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<p>The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set. The goal is to prepare tidy data that can be used for later analysis. You will be graded by your peers on a series of yes/no questions related to the project. You will be required to submit: 1) a tidy data set as described below, 2) a link to a Github repository with your script for performing the analysis, and 3) a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected. </p>
+
+<p>One of the most exciting areas in all of data science right now is wearable computing - see for example this article . Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:</p>
+
+<p><a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a></p>
+
+<p>Here are the data for the project:</p>
+
+<p><a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a></p>
+
+<p>You should create one R script called run_analysis.R that does the following. </p>
+
+<pre><code>- Merges the training and the test sets to create one data set --&gt; COMPLETED
+- Extracts only the measurements on the mean and standard deviation for each measurement. --&gt; COMPLETED 
+- Uses descriptive activity names to name the activities in the data set --&gt; COMPLETED
+- Appropriately labels the data set with descriptive variable names. --&gt; COMPLETED
+
+- From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject. --&gt; COMPLETED
+</code></pre>
+
+<p><b>Set up environments</b></p>
+
+<p>Load required packages and define working directory, URL and name of the downloaded zipped file used for this
+exercise.</p>
+
+<pre><code class="r">library(data.table)
+library(reshape2)
+current_wd &lt;- getwd()
+# Download the file under the name - &quot;Dataset.zip&quot; into the current working directory
+url &lt;- &quot;https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip&quot;
+inputDataFile &lt;- &quot;Dataset.zip&quot;
+</code></pre>
+
+<p><b>Download</b> the zipped input file into the current working directory and unzip it with REPLACE option.</p>
+
+<p><b>List</b> all the files under the designated sub-directory</p>
+
+<pre><code>##  [1] &quot;activity_labels.txt&quot;                         
+##  [2] &quot;features_info.txt&quot;                           
+##  [3] &quot;features.txt&quot;                                
+##  [4] &quot;README.txt&quot;                                  
+##  [5] &quot;test/Inertial Signals/body_acc_x_test.txt&quot;   
+##  [6] &quot;test/Inertial Signals/body_acc_y_test.txt&quot;   
+##  [7] &quot;test/Inertial Signals/body_acc_z_test.txt&quot;   
+##  [8] &quot;test/Inertial Signals/body_gyro_x_test.txt&quot;  
+##  [9] &quot;test/Inertial Signals/body_gyro_y_test.txt&quot;  
+## [10] &quot;test/Inertial Signals/body_gyro_z_test.txt&quot;  
+## [11] &quot;test/Inertial Signals/total_acc_x_test.txt&quot;  
+## [12] &quot;test/Inertial Signals/total_acc_y_test.txt&quot;  
+## [13] &quot;test/Inertial Signals/total_acc_z_test.txt&quot;  
+## [14] &quot;test/subject_test.txt&quot;                       
+## [15] &quot;test/X_test.txt&quot;                             
+## [16] &quot;test/y_test.txt&quot;                             
+## [17] &quot;train/Inertial Signals/body_acc_x_train.txt&quot; 
+## [18] &quot;train/Inertial Signals/body_acc_y_train.txt&quot; 
+## [19] &quot;train/Inertial Signals/body_acc_z_train.txt&quot; 
+## [20] &quot;train/Inertial Signals/body_gyro_x_train.txt&quot;
+## [21] &quot;train/Inertial Signals/body_gyro_y_train.txt&quot;
+## [22] &quot;train/Inertial Signals/body_gyro_z_train.txt&quot;
+## [23] &quot;train/Inertial Signals/total_acc_x_train.txt&quot;
+## [24] &quot;train/Inertial Signals/total_acc_y_train.txt&quot;
+## [25] &quot;train/Inertial Signals/total_acc_z_train.txt&quot;
+## [26] &quot;train/subject_train.txt&quot;                     
+## [27] &quot;train/X_train.txt&quot;                           
+## [28] &quot;train/y_train.txt&quot;
+</code></pre>
+
+<p><b>Read</b> subject, activity and training/test files from the designated working directory.</p>
+
+<pre><code class="r">subjectTrainingDS &lt;- fread(file.path(inputDirPath, &quot;train&quot;, &quot;subject_train.txt&quot;))
+subjectTestDS     &lt;- fread(file.path(inputDirPath, &quot;test&quot; , &quot;subject_test.txt&quot; ))
+
+YTrainingDS   &lt;- fread(file.path(inputDirPath, &quot;train&quot;, &quot;y_train.txt&quot;))
+YTestDS       &lt;- fread(file.path(inputDirPath, &quot;test&quot; , &quot;y_test.txt&quot; ))
+
+XTrainingDS &lt;- read.table(file.path(inputDirPath, &quot;train&quot;, &quot;X_train.txt&quot;))
+XTestDS     &lt;- read.table(file.path(inputDirPath, &quot;test&quot; , &quot;X_test.txt&quot; ))
+</code></pre>
+
+<p><b>Combine two subject files</b> into one and rename its column</p>
+
+<pre><code class="r">mergedSubjectDS &lt;- rbind(subjectTrainingDS, subjectTestDS)
+setnames(mergedSubjectDS, &quot;V1&quot;, &quot;subject&quot;)
+</code></pre>
+
+<p><b>Combine two activity files</b> into one file: training and test datasets and rename its colnames</p>
+
+<pre><code class="r">mergedYDS &lt;- rbind(YTrainingDS, YTestDS)
+setnames(mergedYDS, &quot;V1&quot;, &quot;activityNum&quot;)
+</code></pre>
+
+<p><b>Combine two input files</b> into one file: training and test datasets and create the key for it.</p>
+
+<pre><code class="r">mergedDS &lt;- rbind(XTrainingDS, XTestDS)
+</code></pre>
+
+<p><b>Merge by columns</b> to create the final dataset for analysis before applying the selection criteria</p>
+
+<pre><code class="r">subjectDS &lt;- cbind(mergedSubjectDS, mergedYDS)
+dataset &lt;- cbind(subjectDS, mergedDS)
+## and create a key on the final merged dataset to be analyzed
+setkey(dataset, subject, activityNum) 
+</code></pre>
+
+<p><b>Read meta-data support files</b>: two files: feature/activity label files and changes its two columns with new names.</p>
+
+<pre><code class="r">featureDS &lt;- fread(file.path(inputDirPath, &quot;features.txt&quot;))
+setnames(featureDS, names(featureDS), c(&quot;featureID&quot;, &quot;featureText&quot;))
+activityLabelDS &lt;- fread(file.path(inputDirPath, &quot;activity_labels.txt&quot;))
+setnames(activityLabelDS, names(activityLabelDS), c(&quot;activityID&quot;, &quot;activityText&quot;))
+</code></pre>
+
+<p><b>Apply the selection criteria</b> to retrieve only Mean and Standard Deviation rows.Display some data for the verification.</p>
+
+<pre><code class="r"># Extracts only the measurements on the mean or standard deviation for each measurement.
+grepStr &lt;- &quot;mean\\(\\)|std\\(\\)&quot;
+featureDS &lt;- featureDS[grepl(grepStr, featureText, ignore.case = TRUE)]
+dim(featureDS)
+</code></pre>
+
+<pre><code>## [1] 66  2
+</code></pre>
+
+<pre><code class="r"># and display the first 6 rows to check the selection via regular expression for a verification
+head(featureDS)
+</code></pre>
+
+<pre><code>##    featureID       featureText
+## 1:         1 tBodyAcc-mean()-X
+## 2:         2 tBodyAcc-mean()-Y
+## 3:         3 tBodyAcc-mean()-Z
+## 4:         4  tBodyAcc-std()-X
+## 5:         5  tBodyAcc-std()-Y
+## 6:         6  tBodyAcc-std()-Z
+</code></pre>
+
+<pre><code class="r">#
+# add a new column with appropriate values used for lookup operation later against the target dataset
+#
+featureDS$featureVersionID &lt;- featureDS[, paste(&quot;V&quot;, featureID, sep=&#39;&#39;)]
+dim(featureDS)
+</code></pre>
+
+<pre><code>## [1] 66  3
+</code></pre>
+
+<pre><code class="r">colnames(featureDS)
+</code></pre>
+
+<pre><code>## [1] &quot;featureID&quot;        &quot;featureText&quot;      &quot;featureVersionID&quot;
+</code></pre>
+
+<pre><code class="r">head(featureDS)
+</code></pre>
+
+<pre><code>##    featureID       featureText featureVersionID
+## 1:         1 tBodyAcc-mean()-X               V1
+## 2:         2 tBodyAcc-mean()-Y               V2
+## 3:         3 tBodyAcc-mean()-Z               V3
+## 4:         4  tBodyAcc-std()-X               V4
+## 5:         5  tBodyAcc-std()-Y               V5
+## 6:         6  tBodyAcc-std()-Z               V6
+</code></pre>
+
+<p>Select qualified rows with appropriate labels. A few actions need to be applied: filter, set key, reshape and merge activities&hellip; </p>
+
+<pre><code class="r">criteriaStr &lt;- c(key(dataset), featureDS$featureVersionID)
+dim(dataset)
+</code></pre>
+
+<pre><code>## [1] 10299   563
+</code></pre>
+
+<pre><code class="r">dataset &lt;- dataset[, criteriaStr, with = FALSE]
+dim(dataset)
+</code></pre>
+
+<pre><code>## [1] 10299    68
+</code></pre>
+
+<pre><code class="r">dataset &lt;- merge(dataset, activityLabelDS, by = &quot;activityNum&quot;, all.x = TRUE)
+</code></pre>
+
+<pre><code>## Error in merge.data.table(dataset, activityLabelDS, by = &quot;activityNum&quot;, : Elements listed in `by` must be valid column names in x and y
+</code></pre>
+
+<pre><code class="r">colnames(dataset)
+</code></pre>
+
+<pre><code>##  [1] &quot;subject&quot;     &quot;activityNum&quot; &quot;V1&quot;          &quot;V2&quot;          &quot;V3&quot;         
+##  [6] &quot;V4&quot;          &quot;V5&quot;          &quot;V6&quot;          &quot;V41&quot;         &quot;V42&quot;        
+## [11] &quot;V43&quot;         &quot;V44&quot;         &quot;V45&quot;         &quot;V46&quot;         &quot;V81&quot;        
+## [16] &quot;V82&quot;         &quot;V83&quot;         &quot;V84&quot;         &quot;V85&quot;         &quot;V86&quot;        
+## [21] &quot;V121&quot;        &quot;V122&quot;        &quot;V123&quot;        &quot;V124&quot;        &quot;V125&quot;       
+## [26] &quot;V126&quot;        &quot;V161&quot;        &quot;V162&quot;        &quot;V163&quot;        &quot;V164&quot;       
+## [31] &quot;V165&quot;        &quot;V166&quot;        &quot;V201&quot;        &quot;V202&quot;        &quot;V214&quot;       
+## [36] &quot;V215&quot;        &quot;V227&quot;        &quot;V228&quot;        &quot;V240&quot;        &quot;V241&quot;       
+## [41] &quot;V253&quot;        &quot;V254&quot;        &quot;V266&quot;        &quot;V267&quot;        &quot;V268&quot;       
+## [46] &quot;V269&quot;        &quot;V270&quot;        &quot;V271&quot;        &quot;V345&quot;        &quot;V346&quot;       
+## [51] &quot;V347&quot;        &quot;V348&quot;        &quot;V349&quot;        &quot;V350&quot;        &quot;V424&quot;       
+## [56] &quot;V425&quot;        &quot;V426&quot;        &quot;V427&quot;        &quot;V428&quot;        &quot;V429&quot;       
+## [61] &quot;V503&quot;        &quot;V504&quot;        &quot;V516&quot;        &quot;V517&quot;        &quot;V529&quot;       
+## [66] &quot;V530&quot;        &quot;V542&quot;        &quot;V543&quot;
+</code></pre>
+
+<pre><code class="r">head(dataset)
+</code></pre>
+
+<pre><code>##    subject activityNum        V1           V2          V3         V4
+## 1:       1           1 0.2820216 -0.037696218 -0.13489730 -0.3282802
+## 2:       1           1 0.2558408 -0.064550029 -0.09518634 -0.2292069
+## 3:       1           1 0.2548672  0.003814723 -0.12365809 -0.2751579
+## 4:       1           1 0.3433705 -0.014446221 -0.16737697 -0.2299235
+## 5:       1           1 0.2762397 -0.029638413 -0.14261631 -0.2265769
+## 6:       1           1 0.2554682  0.021219063 -0.04894943 -0.2245370
+##             V5         V6       V41        V42         V43        V44
+## 1: -0.13715339 -0.1890859 0.9453028 -0.2459414 -0.03216478 -0.9840476
+## 2:  0.01650608 -0.2603109 0.9411130 -0.2520352 -0.03288345 -0.9839625
+## 3:  0.01307987 -0.2843713 0.9463639 -0.2642781 -0.02557507 -0.9628101
+## 4:  0.17391077 -0.2133875 0.9524451 -0.2598379 -0.02613106 -0.9811001
+## 5:  0.16428792 -0.1225450 0.9471251 -0.2571003 -0.02842261 -0.9769275
+## 6:  0.02231294 -0.1131962 0.9457488 -0.2547778 -0.02652145 -0.9853150
+##           V45        V46        V81        V82          V83        V84
+## 1: -0.9289281 -0.9325598 -0.1564857 -0.1428530 -0.113078690 -0.1837594
+## 2: -0.9174993 -0.9490782 -0.2075541  0.3578428 -0.452400930 -0.1083503
+## 3: -0.9561309 -0.9719092  0.2016045  0.4170823  0.139078170 -0.1776946
+## 4: -0.9643989 -0.9643039  0.3360845 -0.4641436 -0.005025745 -0.1204862
+## 5: -0.9885960 -0.9604447 -0.2356234 -0.1117772  0.172654600 -0.1924335
+## 6: -0.9801945 -0.9662646  0.1159299  0.2346673  0.361505180 -0.2457770
+##            V85        V86         V121        V122        V123       V124
+## 1: -0.17046131 -0.6138299 -0.479729520  0.08203403 0.256443090 -0.3235458
+## 2: -0.01869285 -0.5475588  0.094091481 -0.30915291 0.086441165 -0.3992529
+## 3: -0.02960064 -0.5795071  0.211200570 -0.27290542 0.101986010 -0.4454378
+## 4:  0.02865963 -0.5214649  0.096081738 -0.16339425 0.025859464 -0.3604054
+## 5:  0.05398133 -0.4693241  0.008742388  0.01166058 0.004174515 -0.3775575
+## 6: -0.02056663 -0.4659302 -0.042556600  0.09761780 0.084655454 -0.5108548
+##           V125       V126        V161         V162        V163       V164
+## 1: -0.14193972 -0.4565980  0.09424803 -0.476210050 -0.14213364 -0.3457161
+## 2: -0.08841570 -0.4021575  0.16674262 -0.033796125 -0.08926024 -0.2498919
+## 3: -0.06308333 -0.3470558 -0.16322550 -0.005560408 -0.23155479 -0.2642317
+## 4:  0.04233342 -0.2761384 -0.05462885  0.340289290 -0.26967159 -0.1020531
+## 5:  0.13371503 -0.3081481 -0.07566824  0.171466880  0.13645072 -0.1290674
+## 6:  0.02642284 -0.3724244 -0.33244254 -0.406247560  0.23877062 -0.2875010
+##          V165       V166        V201       V202        V214       V215
+## 1: -0.4867495 -0.4215080 -0.22455962 -0.2379807 -0.22455962 -0.2379807
+## 2: -0.4537442 -0.3698131 -0.12650269 -0.2133903 -0.12650269 -0.2133903
+## 3: -0.4246765 -0.3425422 -0.16010001 -0.2575711 -0.16010001 -0.2575711
+## 4: -0.2434422 -0.3115771 -0.07351308 -0.1951145 -0.07351308 -0.1951145
+## 5: -0.1901072 -0.4183491 -0.04949205 -0.2110254 -0.04949205 -0.2110254
+## 6: -0.2924124 -0.4825550 -0.07739443 -0.2377672 -0.07739443 -0.2377672
+##          V227       V228        V240        V241       V253       V254
+## 1: -0.2894243 -0.1650001 -0.03439560 -0.16818626 -0.4661497 -0.4336540
+## 2: -0.1385012 -0.1985903 -0.14093823 -0.21605518 -0.3899198 -0.4389841
+## 3: -0.1943548 -0.2199436 -0.09459356 -0.29084739 -0.3741507 -0.4180319
+## 4: -0.1294801 -0.1739346 -0.04934062 -0.09012390 -0.2364741 -0.2294418
+## 5: -0.1598686 -0.1498507 -0.02141046 -0.04463632 -0.2200966 -0.2127722
+## 6: -0.2060086 -0.1992724 -0.13887531 -0.16730755 -0.3038356 -0.3744300
+##          V266        V267       V268       V269        V270       V271
+## 1: -0.2609049 -0.12256680 -0.3312160 -0.3567070 -0.19956719 -0.1777802
+## 2: -0.1511153 -0.02904997 -0.2573071 -0.2621973 -0.02385785 -0.3221639
+## 3: -0.2304074  0.02542685 -0.3773113 -0.2935223 -0.05769317 -0.2900854
+## 4: -0.1513229  0.19526720 -0.3212387 -0.2631256  0.08785532 -0.2169750
+## 5: -0.2258036  0.11028848 -0.2048832 -0.2268023  0.11880106 -0.1463515
+## 6: -0.2904287  0.05782228 -0.2483574 -0.1999707 -0.06209912 -0.1106583
+##          V345        V346       V347       V348         V349       V350
+## 1: -0.2104645 -0.26352811 -0.5357091 -0.2282532 -0.124274450 -0.6984362
+## 2: -0.1783384 -0.12083878 -0.4989475 -0.1140450  0.027847600 -0.5945946
+## 3: -0.1926535 -0.10961071 -0.5256478 -0.2358945 -0.005815575 -0.6328668
+## 4: -0.1834189 -0.02597198 -0.4874227 -0.1322793  0.020367181 -0.5528494
+## 5: -0.2852402 -0.01110185 -0.4258950 -0.1692272  0.055776797 -0.5102109
+## 6: -0.2980468 -0.05172677 -0.4334865 -0.2575384 -0.052800462 -0.4954739
+##          V424        V425       V426       V427         V428       V429
+## 1: -0.1847807 -0.19802441 -0.3075584 -0.3680772 -0.115047260 -0.5653109
+## 2: -0.2045095 -0.24583137 -0.3111780 -0.4613169 -0.009837662 -0.4898550
+## 3: -0.3170815 -0.20815880 -0.1857984 -0.4863059  0.009726873 -0.4693567
+## 4: -0.1622106  0.02655303 -0.1804687 -0.4234905  0.044652222 -0.3765651
+## 5: -0.2371058  0.04721125 -0.2579581 -0.4223431  0.176016240 -0.3885971
+## 6: -0.3475347 -0.03515961 -0.3338457 -0.5629958  0.055512057 -0.4428802
+##           V503       V504       V516       V517         V529       V530
+## 1: -0.16681083 -0.3995829 -0.1540448 -0.1846900 -0.222176040 -0.2736495
+## 2: -0.07927762 -0.4230300 -0.1784456 -0.2306563 -0.268279820 -0.3146234
+## 3: -0.15631258 -0.4368583 -0.1494380 -0.3212563 -0.308670720 -0.4014002
+## 4: -0.10437689 -0.3762153 -0.1322222 -0.2326118 -0.060131490 -0.2746461
+## 5: -0.12319532 -0.3878596 -0.1160875 -0.2010365 -0.003821466 -0.2462486
+## 6: -0.20002501 -0.3781722 -0.1590210 -0.2578159 -0.174531260 -0.3073559
+##          V542       V543
+## 1: -0.4318317 -0.4763701
+## 2: -0.4281859 -0.4928844
+## 3: -0.4010383 -0.4819242
+## 4: -0.2176688 -0.2992263
+## 5: -0.1875509 -0.3003380
+## 6: -0.3383588 -0.4650149
+</code></pre>
+
+<pre><code class="r">setkey(dataset, subject, activityNum, activityText)
+</code></pre>
+
+<pre><code>## Error in setkeyv(x, cols, verbose = verbose, physical = physical): some columns are not in the data.table: activityText
+</code></pre>
+
+<pre><code class="r">dataset &lt;- data.table(melt(dataset, key(dataset), variable.name = &quot;featureVersionID&quot;))
+dataset &lt;- merge(dataset, featureDS[, list(featureID, featureVersionID, featureText)], by = &quot;featureVersionID&quot;, all.x = TRUE)
+
+# create two new factor variables: activity and feature from two data frame variables
+
+dataset$activity &lt;- factor(dataset$activityText)
+</code></pre>
+
+<pre><code>## Error in `[&lt;-.data.table`(x, j = name, value = value): RHS of assignment to new column &#39;activity&#39; is zero length but not empty list(). For new columns the RHS must either be empty list() to create an empty list column, or, have length &gt; 0; e.g. NA_integer_, 0L, etc.
+</code></pre>
+
+<pre><code class="r">dataset$feature &lt;- factor(dataset$featureText)
+</code></pre>
+
+<p><b>Create new matrix</b> with variables derived from the Feature Column so we can be ready for the final tidy
+output dataset</p>
+
+<pre><code class="r">grepFunct &lt;- function(regex) {
+  grepl(regex, dataset$feature)
+}
+## Features with 1 category
+n &lt;- 2
+y &lt;- matrix(seq(1, n), nrow = n)
+x &lt;- matrix(c(grepFunct(&quot;^t&quot;), grepFunct(&quot;^f&quot;)), ncol = nrow(y))
+dataset$featDomain &lt;- factor(x %*% y, labels = c(&quot;Time&quot;, &quot;Freq&quot;))
+x &lt;- matrix(c(grepFunct(&quot;Acc&quot;), grepFunct(&quot;Gyro&quot;)), ncol = nrow(y))
+dataset$featInstrument &lt;- factor(x %*% y, labels = c(&quot;Accelerometer&quot;, &quot;Gyroscope&quot;))
+x &lt;- matrix(c(grepFunct(&quot;BodyAcc&quot;), grepFunct(&quot;GravityAcc&quot;)), ncol = nrow(y))
+dataset$featAcceleration &lt;- factor(x %*% y, labels = c(NA, &quot;Body&quot;, &quot;Gravity&quot;))
+x &lt;- matrix(c(grepFunct(&quot;mean()&quot;), grepFunct(&quot;std()&quot;)), ncol = nrow(y))
+dataset$featVariable &lt;- factor(x %*% y, labels = c(&quot;Mean&quot;, &quot;SD&quot;))
+## Features with 1 category
+dataset$featJerk &lt;- factor(grepFunct(&quot;Jerk&quot;), labels = c(NA, &quot;Jerk&quot;))
+dataset$featMagnitude &lt;- factor(grepFunct(&quot;Mag&quot;), labels = c(NA, &quot;Magnitude&quot;))
+## Features with 3 categories
+n &lt;- 3
+y &lt;- matrix(seq(1, n), nrow = n) 
+x &lt;- matrix(c(grepFunct(&quot;-X&quot;), grepFunct(&quot;-Y&quot;), grepFunct(&quot;-Z&quot;)), ncol = nrow(y))
+dataset$featAxis &lt;- factor(x %*% y, labels = c(NA, &quot;X&quot;, &quot;Y&quot;, &quot;Z&quot;))
+head(dataset)
+</code></pre>
+
+<pre><code>##    featureVersionID subject activityNum     value featureID
+## 1:               V1       1           1 0.2820216         1
+## 2:               V1       1           1 0.2558408         1
+## 3:               V1       1           1 0.2548672         1
+## 4:               V1       1           1 0.3433705         1
+## 5:               V1       1           1 0.2762397         1
+## 6:               V1       1           1 0.2554682         1
+##          featureText           feature featDomain featInstrument
+## 1: tBodyAcc-mean()-X tBodyAcc-mean()-X       Time  Accelerometer
+## 2: tBodyAcc-mean()-X tBodyAcc-mean()-X       Time  Accelerometer
+## 3: tBodyAcc-mean()-X tBodyAcc-mean()-X       Time  Accelerometer
+## 4: tBodyAcc-mean()-X tBodyAcc-mean()-X       Time  Accelerometer
+## 5: tBodyAcc-mean()-X tBodyAcc-mean()-X       Time  Accelerometer
+## 6: tBodyAcc-mean()-X tBodyAcc-mean()-X       Time  Accelerometer
+##    featAcceleration featVariable featJerk featMagnitude featAxis
+## 1:             Body         Mean       NA            NA        X
+## 2:             Body         Mean       NA            NA        X
+## 3:             Body         Mean       NA            NA        X
+## 4:             Body         Mean       NA            NA        X
+## 5:             Body         Mean       NA            NA        X
+## 6:             Body         Mean       NA            NA        X
+</code></pre>
+
+<pre><code class="r">colnames(dataset)
+</code></pre>
+
+<pre><code>##  [1] &quot;featureVersionID&quot; &quot;subject&quot;          &quot;activityNum&quot;     
+##  [4] &quot;value&quot;            &quot;featureID&quot;        &quot;featureText&quot;     
+##  [7] &quot;feature&quot;          &quot;featDomain&quot;       &quot;featInstrument&quot;  
+## [10] &quot;featAcceleration&quot; &quot;featVariable&quot;     &quot;featJerk&quot;        
+## [13] &quot;featMagnitude&quot;    &quot;featAxis&quot;
+</code></pre>
+
+<p><b>Create the final tidy dataset</b></p>
+
+<pre><code class="r"># about to create the final tidy dataset
+setkey(dataset, subject, activity, featDomain, featAcceleration, featInstrument, 
+       featJerk, featMagnitude, featVariable, featAxis)
+</code></pre>
+
+<pre><code>## Error in setkeyv(x, cols, verbose = verbose, physical = physical): some columns are not in the data.table: activity
+</code></pre>
+
+<pre><code class="r">datasetTidy &lt;- dataset[, list(count = .N, average = mean(value)), by = key(dataset)]
+dim(datasetTidy)
+</code></pre>
+
+<pre><code>## [1] 66  3
+</code></pre>
+
+<pre><code class="r">colnames(datasetTidy)
+</code></pre>
+
+<pre><code>## [1] &quot;featureVersionID&quot; &quot;count&quot;            &quot;average&quot;
+</code></pre>
+
+<pre><code class="r">head(datasetTidy)
+</code></pre>
+
+<pre><code>##    featureVersionID count     average
+## 1:               V1 10299  0.27434726
+## 2:             V121 10299 -0.03098249
+## 3:             V122 10299 -0.07471949
+## 4:             V123 10299  0.08835730
+## 5:             V124 10299 -0.72119260
+## 6:             V125 10299 -0.68265351
+</code></pre>
+
+<p><b>Generate the code book</b></p>
+
+<pre><code class="r">knit(&quot;mkcodebook.Rmd&quot;, output=&quot;codebook.md&quot;, encoding=&quot;ISO8859-1&quot;, quiet=TRUE)
+</code></pre>
+
+<pre><code>## [1] &quot;codebook.md&quot;
+</code></pre>
+
+<pre><code class="r">markdownToHTML(&quot;codebook.md&quot;, &quot;codebook.html&quot;)
+</code></pre>
+
+</body>
+
+</html>

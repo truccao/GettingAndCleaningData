@@ -1,0 +1,194 @@
+---
+title: "Run_Analysis Project Homework"
+output: html_document
+---
+The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set. The goal is to prepare tidy data that can be used for later analysis. You will be graded by your peers on a series of yes/no questions related to the project. You will be required to submit: 1) a tidy data set as described below, 2) a link to a Github repository with your script for performing the analysis, and 3) a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected. 
+
+One of the most exciting areas in all of data science right now is wearable computing - see for example this article . Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
+
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+Here are the data for the project:
+
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+You should create one R script called run_analysis.R that does the following. 
+
+    - Merges the training and the test sets to create one data set --> COMPLETED
+    - Extracts only the measurements on the mean and standard deviation for each measurement. --> COMPLETED 
+    - Uses descriptive activity names to name the activities in the data set --> COMPLETED
+    - Appropriately labels the data set with descriptive variable names. --> COMPLETED
+
+    - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject. --> COMPLETED
+
+<b>Set up environments</b>
+
+Load required packages and define working directory, URL and name of the downloaded zipped file used for this
+exercise.
+
+```{r setup_envs}
+library(data.table)
+library(reshape2)
+current_wd <- getwd()
+# Download the file under the name - "Dataset.zip" into the current working directory
+url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+inputDataFile <- "Dataset.zip"
+```
+
+<b>Download</b> the zipped input file into the current working directory and unzip it with REPLACE option.
+
+```{r download_data, echo=FALSE}
+download.file(url, inputDataFile, method="curl")
+# clean up the old directory
+system("rm -rf 'UCI HAR Dataset'")
+# start unzip the zipped file under the folder - "UCI HAR Dataset"
+unzipCmd <- paste("unzip -u ", inputDataFile, sep='')
+system(unzipCmd)
+inputDirPath <- file.path(current_wd, "UCI HAR Dataset")
+```
+
+<b>List</b> all the files under the designated sub-directory
+
+```{r list_files, echo=FALSE}
+list.files(inputDirPath, recursive=TRUE)
+```
+
+<b>Read</b> subject, activity and training/test files from the designated working directory.
+
+```{r read_files}
+subjectTrainingDS <- fread(file.path(inputDirPath, "train", "subject_train.txt"))
+subjectTestDS     <- fread(file.path(inputDirPath, "test" , "subject_test.txt" ))
+
+YTrainingDS   <- fread(file.path(inputDirPath, "train", "y_train.txt"))
+YTestDS       <- fread(file.path(inputDirPath, "test" , "y_test.txt" ))
+
+XTrainingDS <- read.table(file.path(inputDirPath, "train", "X_train.txt"))
+XTestDS     <- read.table(file.path(inputDirPath, "test" , "X_test.txt" ))
+```
+
+<b>Combine two subject files</b> into one and rename its column
+
+```{r merge_subject_files}
+mergedSubjectDS <- rbind(subjectTrainingDS, subjectTestDS)
+setnames(mergedSubjectDS, "V1", "subject")
+```
+
+<b>Combine two activity files</b> into one file: training and test datasets and rename its colnames
+```{r merge_activity_files}
+mergedYDS <- rbind(YTrainingDS, YTestDS)
+setnames(mergedYDS, "V1", "activityNum")
+```
+
+<b>Combine two input files</b> into one file: training and test datasets and create the key for it.
+
+```{r merge_inputfiles}
+mergedDS <- rbind(XTrainingDS, XTestDS)
+```
+
+<b>Merge by columns</b> to create the final dataset for analysis before applying the selection criteria
+
+```{r merge_columns}
+subjectDS <- cbind(mergedSubjectDS, mergedYDS)
+dataset <- cbind(subjectDS, mergedDS)
+## and create a key on the final merged dataset to be analyzed
+setkey(dataset, subject, activityNum) 
+```
+
+<b>Read meta-data support files</b>: two files: feature/activity label files and changes its two columns with new names.
+
+```{r read_metadata}
+featureDS <- fread(file.path(inputDirPath, "features.txt"))
+setnames(featureDS, names(featureDS), c("featureID", "featureText"))
+activityLabelDS <- fread(file.path(inputDirPath, "activity_labels.txt"))
+setnames(activityLabelDS, names(activityLabelDS), c("activityID", "activityText"))
+```
+
+<b>Apply the selection criteria</b> to retrieve only Mean and Standard Deviation rows.Display some data for the verification.
+
+```{r select_qualified_rows}
+# Extracts only the measurements on the mean or standard deviation for each measurement.
+grepStr <- "mean\\(\\)|std\\(\\)"
+featureDS <- featureDS[grepl(grepStr, featureText, ignore.case = TRUE)]
+dim(featureDS)
+# and display the first 6 rows to check the selection via regular expression for a verification
+head(featureDS)
+#
+# add a new column with appropriate values used for lookup operation later against the target dataset
+#
+featureDS$featureVersionID <- featureDS[, paste("V", featureID, sep='')]
+dim(featureDS)
+colnames(featureDS)
+head(featureDS)
+```
+
+Select qualified rows with appropriate labels. A few actions need to be applied: filter, set key, reshape and merge activities... 
+
+
+```{r}
+criteriaStr <- c(key(dataset), featureDS$featureVersionID)
+dim(dataset)
+dataset <- dataset[, criteriaStr, with = FALSE]
+dim(dataset)
+
+dataset <- merge(dataset, activityLabelDS, by = "activityNum", all.x = TRUE)
+colnames(dataset)
+head(dataset)
+
+setkey(dataset, subject, activityNum, activityText)
+dataset <- data.table(melt(dataset, key(dataset), variable.name = "featureVersionID"))
+dataset <- merge(dataset, featureDS[, list(featureID, featureVersionID, featureText)], by = "featureVersionID", all.x = TRUE)
+
+# create two new factor variables: activity and feature from two data frame variables
+
+dataset$activity <- factor(dataset$activityText)
+dataset$feature <- factor(dataset$featureText)
+```
+
+<b>Create new matrix</b> with variables derived from the Feature Column so we can be ready for the final tidy
+output dataset
+
+```{r create_matrix}
+grepFunct <- function(regex) {
+  grepl(regex, dataset$feature)
+}
+## Features with 1 category
+n <- 2
+y <- matrix(seq(1, n), nrow = n)
+x <- matrix(c(grepFunct("^t"), grepFunct("^f")), ncol = nrow(y))
+dataset$featDomain <- factor(x %*% y, labels = c("Time", "Freq"))
+x <- matrix(c(grepFunct("Acc"), grepFunct("Gyro")), ncol = nrow(y))
+dataset$featInstrument <- factor(x %*% y, labels = c("Accelerometer", "Gyroscope"))
+x <- matrix(c(grepFunct("BodyAcc"), grepFunct("GravityAcc")), ncol = nrow(y))
+dataset$featAcceleration <- factor(x %*% y, labels = c(NA, "Body", "Gravity"))
+x <- matrix(c(grepFunct("mean()"), grepFunct("std()")), ncol = nrow(y))
+dataset$featVariable <- factor(x %*% y, labels = c("Mean", "SD"))
+## Features with 1 category
+dataset$featJerk <- factor(grepFunct("Jerk"), labels = c(NA, "Jerk"))
+dataset$featMagnitude <- factor(grepFunct("Mag"), labels = c(NA, "Magnitude"))
+## Features with 3 categories
+n <- 3
+y <- matrix(seq(1, n), nrow = n) 
+x <- matrix(c(grepFunct("-X"), grepFunct("-Y"), grepFunct("-Z")), ncol = nrow(y))
+dataset$featAxis <- factor(x %*% y, labels = c(NA, "X", "Y", "Z"))
+head(dataset)
+colnames(dataset)
+```
+
+<b>Create the final tidy dataset</b>
+
+```{r create_tidy}
+# about to create the final tidy dataset
+setkey(dataset, subject, activity, featDomain, featAcceleration, featInstrument, 
+       featJerk, featMagnitude, featVariable, featAxis)
+datasetTidy <- dataset[, list(count = .N, average = mean(value)), by = key(dataset)]
+dim(datasetTidy)
+colnames(datasetTidy)
+head(datasetTidy)
+```
+
+<b>Generate the code book</b>
+
+```{r}
+knit("mkcodebook.Rmd", output="codebook.md", encoding="ISO8859-1", quiet=TRUE)
+markdownToHTML("codebook.md", "codebook.html")
+```
