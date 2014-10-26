@@ -100,7 +100,7 @@ setkey(dataset, subject, activityNum)
 featureDS <- fread(file.path(inputDirPath, "features.txt"))
 setnames(featureDS, names(featureDS), c("featureID", "featureText"))
 activityLabelDS <- fread(file.path(inputDirPath, "activity_labels.txt"))
-setnames(activityLabelDS, names(activityLabelDS), c("activityID", "activityText"))
+setnames(activityLabelDS, names(activityLabelDS), c("activityNum", "activityText"))
 ```
 
 <b>Apply the selection criteria</b> to retrieve only Mean and Standard Deviation rows.Display some data for the verification.
@@ -178,8 +178,7 @@ colnames(dataset)
 
 ```{r create_tidy}
 # about to create the final tidy dataset
-setkey(dataset, subject, activity, featDomain, featAcceleration, featInstrument, 
-       featJerk, featMagnitude, featVariable, featAxis)
+setkey(dataset, subject, activity, featDomain, featAcceleration, featInstrument, featJerk, featMagnitude, featVariable, featAxis)
 datasetTidy <- dataset[, list(count = .N, average = mean(value)), by = key(dataset)]
 dim(datasetTidy)
 colnames(datasetTidy)
